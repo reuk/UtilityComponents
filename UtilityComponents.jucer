@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="W9wtSG" name="UtilityComponents" projectType="library" version="1.0.0"
+              bundleIdentifier="com.yourcompany.UtilityComponents" includeBinaryInAppConfig="1"
+              jucerVersion="4.2.1">
+  <MAINGROUP id="Zwqhtw" name="UtilityComponents">
+    <GROUP id="{F1877366-C72E-D304-9191-66F8636343AA}" name="Source">
+      <FILE id="xgMAuX" name="AudioThumbnailPane.cpp" compile="1" resource="0"
+            file="Source/AudioThumbnailPane.cpp"/>
+      <FILE id="BbIZIn" name="AudioThumbnailPane.hpp" compile="0" resource="0"
+            file="Source/AudioThumbnailPane.hpp"/>
+      <FILE id="dmmJRw" name="DefaultAudio.cpp" compile="1" resource="0"
+            file="Source/DefaultAudio.cpp"/>
+      <FILE id="ZO88qT" name="DefaultAudio.hpp" compile="0" resource="0"
+            file="Source/DefaultAudio.hpp"/>
+      <FILE id="KrvrsM" name="FileDropComponent.cpp" compile="1" resource="0"
+            file="Source/FileDropComponent.cpp"/>
+      <FILE id="Razz32" name="FileDropComponent.hpp" compile="0" resource="0"
+            file="Source/FileDropComponent.hpp"/>
+      <FILE id="cazR5V" name="LoadWindow.cpp" compile="1" resource="0" file="Source/LoadWindow.cpp"/>
+      <FILE id="m2w7oQ" name="LoadWindow.hpp" compile="0" resource="0" file="Source/LoadWindow.hpp"/>
+      <FILE id="gz83Rt" name="PlaybackPane.cpp" compile="1" resource="0"
+            file="Source/PlaybackPane.cpp"/>
+      <FILE id="JqMpus" name="PlaybackPane.hpp" compile="0" resource="0"
+            file="Source/PlaybackPane.hpp"/>
+      <FILE id="HMRxPA" name="PlaybackViewManager.cpp" compile="1" resource="0"
+            file="Source/PlaybackViewManager.cpp"/>
+      <FILE id="XEnCey" name="PlaybackViewManager.hpp" compile="0" resource="0"
+            file="Source/PlaybackViewManager.hpp"/>
+      <FILE id="CdxZaj" name="Playhead.cpp" compile="1" resource="0" file="Source/Playhead.cpp"/>
+      <FILE id="H3ag0S" name="Playhead.hpp" compile="0" resource="0" file="Source/Playhead.hpp"/>
+      <FILE id="beJc5g" name="Ruler.cpp" compile="1" resource="0" file="Source/Ruler.cpp"/>
+      <FILE id="PiUmrh" name="Ruler.hpp" compile="0" resource="0" file="Source/Ruler.hpp"/>
+      <FILE id="cNxWGq" name="StoredSettings.cpp" compile="1" resource="0"
+            file="Source/StoredSettings.cpp"/>
+      <FILE id="BFGA4N" name="StoredSettings.hpp" compile="0" resource="0"
+            file="Source/StoredSettings.hpp"/>
+      <FILE id="NNhUp2" name="Transport.cpp" compile="1" resource="0" file="Source/Transport.cpp"/>
+      <FILE id="XlsBeW" name="Transport.hpp" compile="0" resource="0" file="Source/Transport.hpp"/>
+      <FILE id="jfPGIb" name="TransportDisplay.cpp" compile="1" resource="0"
+            file="Source/TransportDisplay.cpp"/>
+      <FILE id="zbgVUP" name="TransportDisplay.hpp" compile="0" resource="0"
+            file="Source/TransportDisplay.hpp"/>
+      <FILE id="qxmaof" name="VUMeter.cpp" compile="1" resource="0" file="Source/VUMeter.cpp"/>
+      <FILE id="N7vBvU" name="VUMeter.hpp" compile="0" resource="0" file="Source/VUMeter.hpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-std=c++14">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="UtilityComponents"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="UtilityComponents"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
