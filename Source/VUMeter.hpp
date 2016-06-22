@@ -10,9 +10,14 @@ public:
 
     void push_buffer(const AudioSourceChannelInfo &buffer);
     void push_buffer(const AudioSampleBuffer &buffer);
-    virtual void push_buffer(const float **channel_data,
-                             int num_channels,
-                             int num_samples) = 0;
+    void push_buffer(const float **channel_data,
+                     int num_channels,
+                     int num_samples);
+
+private:
+    virtual void do_push_buffer(const float **channel_data,
+                                int num_channels,
+                                int num_samples) = 0;
 };
 
 //----------------------------------------------------------------------------//
@@ -26,15 +31,15 @@ public:
             , channel(channel) {
     }
 
-    void push_buffer(const float **channel_data,
-                     int num_channels,
-                     int num_samples) override;
-
     void reset();
 
     float get_level() const;
 
 private:
+    void do_push_buffer(const float **channel_data,
+                        int num_channels,
+                        int num_samples) override;
+
     struct MeterStrategy {
         virtual ~MeterStrategy() noexcept = default;
         virtual float operator()(const float *channel_data,
@@ -72,13 +77,13 @@ public:
 
     void paint(Graphics &g) override;
 
-    void push_buffer(const float **channel_data,
-                     int num_channels,
-                     int num_samples) override;
-
     void reset();
 
 private:
+    void do_push_buffer(const float **channel_data,
+                        int num_channels,
+                        int num_samples) override;
+
     virtual void do_paint(Graphics &g) = 0;
 
     void timerCallback() override;
