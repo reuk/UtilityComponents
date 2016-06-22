@@ -5,44 +5,46 @@
               jucerVersion="4.2.1">
   <MAINGROUP id="Zwqhtw" name="UtilityComponents">
     <GROUP id="{F1877366-C72E-D304-9191-66F8636343AA}" name="Source">
-      <FILE id="xgMAuX" name="AudioThumbnailPane.cpp" compile="1" resource="0"
+      <FILE id="xVeY04" name="AudioThumbnailPane.cpp" compile="1" resource="0"
             file="Source/AudioThumbnailPane.cpp"/>
-      <FILE id="BbIZIn" name="AudioThumbnailPane.hpp" compile="0" resource="0"
+      <FILE id="EFywvA" name="AudioThumbnailPane.hpp" compile="0" resource="0"
             file="Source/AudioThumbnailPane.hpp"/>
-      <FILE id="dmmJRw" name="DefaultAudio.cpp" compile="1" resource="0"
+      <FILE id="aTR9jE" name="DefaultAudio.cpp" compile="1" resource="0"
             file="Source/DefaultAudio.cpp"/>
-      <FILE id="ZO88qT" name="DefaultAudio.hpp" compile="0" resource="0"
+      <FILE id="acdP52" name="DefaultAudio.hpp" compile="0" resource="0"
             file="Source/DefaultAudio.hpp"/>
-      <FILE id="KrvrsM" name="FileDropComponent.cpp" compile="1" resource="0"
+      <FILE id="OENSOl" name="FileDropComponent.cpp" compile="1" resource="0"
             file="Source/FileDropComponent.cpp"/>
-      <FILE id="Razz32" name="FileDropComponent.hpp" compile="0" resource="0"
+      <FILE id="zuPdd8" name="FileDropComponent.hpp" compile="0" resource="0"
             file="Source/FileDropComponent.hpp"/>
-      <FILE id="cazR5V" name="LoadWindow.cpp" compile="1" resource="0" file="Source/LoadWindow.cpp"/>
-      <FILE id="m2w7oQ" name="LoadWindow.hpp" compile="0" resource="0" file="Source/LoadWindow.hpp"/>
-      <FILE id="gz83Rt" name="PlaybackPane.cpp" compile="1" resource="0"
+      <FILE id="Fg7Bew" name="ForEach.hpp" compile="0" resource="0" file="Source/ForEach.hpp"/>
+      <FILE id="uDHwMF" name="Lerp.hpp" compile="0" resource="0" file="Source/Lerp.hpp"/>
+      <FILE id="CfTfs9" name="LoadWindow.cpp" compile="1" resource="0" file="Source/LoadWindow.cpp"/>
+      <FILE id="OEDenx" name="LoadWindow.hpp" compile="0" resource="0" file="Source/LoadWindow.hpp"/>
+      <FILE id="rLDb12" name="PlaybackPane.cpp" compile="1" resource="0"
             file="Source/PlaybackPane.cpp"/>
-      <FILE id="JqMpus" name="PlaybackPane.hpp" compile="0" resource="0"
+      <FILE id="lfsBa3" name="PlaybackPane.hpp" compile="0" resource="0"
             file="Source/PlaybackPane.hpp"/>
-      <FILE id="HMRxPA" name="PlaybackViewManager.cpp" compile="1" resource="0"
+      <FILE id="EWmJeZ" name="PlaybackViewManager.cpp" compile="1" resource="0"
             file="Source/PlaybackViewManager.cpp"/>
-      <FILE id="XEnCey" name="PlaybackViewManager.hpp" compile="0" resource="0"
+      <FILE id="XDMpGS" name="PlaybackViewManager.hpp" compile="0" resource="0"
             file="Source/PlaybackViewManager.hpp"/>
-      <FILE id="CdxZaj" name="Playhead.cpp" compile="1" resource="0" file="Source/Playhead.cpp"/>
-      <FILE id="H3ag0S" name="Playhead.hpp" compile="0" resource="0" file="Source/Playhead.hpp"/>
-      <FILE id="beJc5g" name="Ruler.cpp" compile="1" resource="0" file="Source/Ruler.cpp"/>
-      <FILE id="PiUmrh" name="Ruler.hpp" compile="0" resource="0" file="Source/Ruler.hpp"/>
-      <FILE id="cNxWGq" name="StoredSettings.cpp" compile="1" resource="0"
+      <FILE id="JZJ00f" name="Playhead.cpp" compile="1" resource="0" file="Source/Playhead.cpp"/>
+      <FILE id="qPZvWU" name="Playhead.hpp" compile="0" resource="0" file="Source/Playhead.hpp"/>
+      <FILE id="HjQ0tV" name="Ruler.cpp" compile="1" resource="0" file="Source/Ruler.cpp"/>
+      <FILE id="X4PJ9E" name="Ruler.hpp" compile="0" resource="0" file="Source/Ruler.hpp"/>
+      <FILE id="FSIViz" name="StoredSettings.cpp" compile="1" resource="0"
             file="Source/StoredSettings.cpp"/>
-      <FILE id="BFGA4N" name="StoredSettings.hpp" compile="0" resource="0"
+      <FILE id="ehpPvJ" name="StoredSettings.hpp" compile="0" resource="0"
             file="Source/StoredSettings.hpp"/>
-      <FILE id="NNhUp2" name="Transport.cpp" compile="1" resource="0" file="Source/Transport.cpp"/>
-      <FILE id="XlsBeW" name="Transport.hpp" compile="0" resource="0" file="Source/Transport.hpp"/>
-      <FILE id="jfPGIb" name="TransportDisplay.cpp" compile="1" resource="0"
+      <FILE id="Ob9wfb" name="Transport.cpp" compile="1" resource="0" file="Source/Transport.cpp"/>
+      <FILE id="QjjmzL" name="Transport.hpp" compile="0" resource="0" file="Source/Transport.hpp"/>
+      <FILE id="y8GTlB" name="TransportDisplay.cpp" compile="1" resource="0"
             file="Source/TransportDisplay.cpp"/>
-      <FILE id="zbgVUP" name="TransportDisplay.hpp" compile="0" resource="0"
+      <FILE id="Ja43sc" name="TransportDisplay.hpp" compile="0" resource="0"
             file="Source/TransportDisplay.hpp"/>
-      <FILE id="qxmaof" name="VUMeter.cpp" compile="1" resource="0" file="Source/VUMeter.cpp"/>
-      <FILE id="N7vBvU" name="VUMeter.hpp" compile="0" resource="0" file="Source/VUMeter.hpp"/>
+      <FILE id="xIjVzU" name="VUMeter.cpp" compile="1" resource="0" file="Source/VUMeter.cpp"/>
+      <FILE id="gw1xCu" name="VUMeter.hpp" compile="0" resource="0" file="Source/VUMeter.hpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

@@ -1,6 +1,6 @@
 #include "Ruler.hpp"
 
-#include "lerp.h"
+#include "Lerp.hpp"
 
 //#include "AngularLookAndFeel.hpp"
 

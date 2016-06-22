@@ -11,9 +11,9 @@ void BufferReader::push_buffer(const AudioSampleBuffer &buffer) {
 
 //----------------------------------------------------------------------------//
 
-void Meter::push_buffer(const float **channel_data,
-                        int num_channels,
-                        int num_samples) {
+void Meter::do_push_buffer(const float **channel_data,
+                           int num_channels,
+                           int num_samples) {
     target = channel < num_channels
                      ? (*strategy)(channel_data[channel], num_samples)
                      : 0;
@@ -62,9 +62,9 @@ void VUMeter::paint(Graphics &g) {
     do_paint(g);
 }
 
-void VUMeter::push_buffer(const float **channel_data,
-                          int num_channels,
-                          int num_samples) {
+void VUMeter::do_push_buffer(const float **channel_data,
+                             int num_channels,
+                             int num_samples) {
     abs_meter.push_buffer(channel_data, num_channels, num_samples);
     rms_meter.push_buffer(channel_data, num_channels, num_samples);
 }

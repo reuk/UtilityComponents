@@ -1168,8 +1168,10 @@
 		F3D61D40B0FB2C9BABD5169C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = transupp.c; path = "../../../JUCE/modules/juce_graphics/image_formats/jpglib/transupp.c"; sourceTree = "SOURCE_ROOT"; };
 		F3E36E8B18201224057C709D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "juce_mac_SystemStats.mm"; path = "../../../JUCE/modules/juce_core/native/juce_mac_SystemStats.mm"; sourceTree = "SOURCE_ROOT"; };
 		F402E773DDDC9C9A836E06A0 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_SliderPropertyComponent.cpp"; path = "../../../JUCE/modules/juce_gui_basics/properties/juce_SliderPropertyComponent.cpp"; sourceTree = "SOURCE_ROOT"; };
+		F41EE22D6C745B04638269BA = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Lerp.hpp; path = ../../Source/Lerp.hpp; sourceTree = "SOURCE_ROOT"; };
 		F460EE8D86FA430DEDE34F6D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_FileChooserDialogBox.cpp"; path = "../../../JUCE/modules/juce_gui_basics/filebrowser/juce_FileChooserDialogBox.cpp"; sourceTree = "SOURCE_ROOT"; };
 		F47D7E31C3AA562AAD57214A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_AnimatedPosition.h"; path = "../../../JUCE/modules/juce_gui_basics/layout/juce_AnimatedPosition.h"; sourceTree = "SOURCE_ROOT"; };
+		F48140D730CDE8262DEB217F = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ForEach.hpp; path = ../../Source/ForEach.hpp; sourceTree = "SOURCE_ROOT"; };
 		F4A0F338A5F0313767AF9E4E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_mac_SystemTrayIcon.cpp"; path = "../../../JUCE/modules/juce_gui_extra/native/juce_mac_SystemTrayIcon.cpp"; sourceTree = "SOURCE_ROOT"; };
 		F4CCD4B54BB23677E90AAD6E = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_TextEditorKeyMapper.h"; path = "../../../JUCE/modules/juce_gui_basics/keyboard/juce_TextEditorKeyMapper.h"; sourceTree = "SOURCE_ROOT"; };
 		F5644F940F6D77AD7D2679D2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_MidiRPN.h"; path = "../../../JUCE/modules/juce_audio_basics/midi/juce_MidiRPN.h"; sourceTree = "SOURCE_ROOT"; };
@@ -1235,6 +1237,8 @@
 					C2552E938C688EB7389E31D6,
 					DC61E7EF213AFF33F13A6CDA,
 					31218E8DC627697AE23F601D,
+					F48140D730CDE8262DEB217F,
+					F41EE22D6C745B04638269BA,
 					A416F674A56B048A613C737B,
 					B06DA2DB324336D3F15F817B,
 					03FEF6EF75BBFBC85E5F7380,
