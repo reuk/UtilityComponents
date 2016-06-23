@@ -33,7 +33,10 @@ public:
 
     void reset();
 
+    void update();
+
     float get_level() const;
+    void set_level(float f);
 
 private:
     void do_push_buffer(const float **channel_data,
@@ -68,26 +71,78 @@ private:
 
 //----------------------------------------------------------------------------//
 
-class VUMeter : public Component, public BufferReader, private Timer {
+class VUMeter : public BufferReader, private Timer {
 public:
+    class Listener {
+    public:
+        Listener() = default;
+        Listener(const Listener &) = default;
+        Listener &operator=(const Listener &) = default;
+        Listener(Listener &&) noexcept = default;
+        Listener &operator=(Listener &&) noexcept = default;
+        virtual ~Listener() noexcept = default;
+
+        virtual void vu_meter_level_changed(VUMeter *, float level) = 0;
+    };
+
     VUMeter(size_t channel);
 
-    float get_abs_level() const;
-    float get_rms_level() const;
-
-    void paint(Graphics &g) override;
+    float get_level() const;
+    void set_level(float l);
 
     void reset();
+
+    void addListener(Listener *l);
+    void removeListener(Listener *l);
 
 private:
     void do_push_buffer(const float **channel_data,
                         int num_channels,
                         int num_samples) override;
 
-    virtual void do_paint(Graphics &g) = 0;
+    void timerCallback() override;
+
+    ListenerList<Listener> listener_list;
+    Meter meter;
+};
+
+class DualVUMeter : public BufferReader, private Timer {
+public:
+    class Listener {
+    public:
+        Listener() = default;
+        Listener(const Listener &) = default;
+        Listener &operator=(const Listener &) = default;
+        Listener(Listener &&) noexcept = default;
+        Listener &operator=(Listener &&) noexcept = default;
+        virtual ~Listener() noexcept = default;
+
+        virtual void vu_meter_levels_changed(DualVUMeter *,
+                                             float abs,
+                                             float rms) = 0;
+    };
+
+    DualVUMeter(size_t channel);
+
+    float get_abs_level() const;
+    void set_abs_level(float l);
+
+    float get_rms_level() const;
+    void set_rms_level(float l);
+
+    void reset();
+
+    void addListener(Listener *l);
+    void removeListener(Listener *l);
+
+private:
+    void do_push_buffer(const float **channel_data,
+                        int num_channels,
+                        int num_samples) override;
 
     void timerCallback() override;
 
+    ListenerList<Listener> listener_list;
     Meter abs_meter;
     Meter rms_meter;
 };
