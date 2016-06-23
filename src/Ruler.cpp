@@ -7,10 +7,16 @@
 
 Ruler::Ruler(PlaybackViewManager &m)
         : playback_view_manager(m) {
+    playback_view_manager.addListener(this);
 }
-Ruler::~Ruler() noexcept = default;
+Ruler::~Ruler() noexcept {
+    playback_view_manager.removeListener(this);
+}
 
 void Ruler::paint(Graphics &g) {
+    g.setFillType(FillType(ColourGradient(
+            Colours::darkgrey, 0, 0, Colours::darkgrey.darker(), 0, getHeight(), false)));
+    g.fillAll();
     g.setFillType(FillType(ColourGradient(
             Colours::white, 0, 0, Colours::lightgrey, 0, getHeight(), false)));
 
@@ -26,7 +32,6 @@ void Ruler::paint(Graphics &g) {
                        s) *
             s;
 
-    g.setColour(Colours::lightgrey);
     for (auto i = begin; i < playback_view_manager.get_visible_range().getEnd();
          i += s) {
         auto pos = lerp(i,
