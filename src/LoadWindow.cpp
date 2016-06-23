@@ -1,4 +1,4 @@
-#include "LoadWindow.hpp"
+#include "UtilityComponents/LoadWindow.hpp"
 
 LoadWindow::LoadWindow(String name,
                        DocumentWindow::TitleBarButtons buttons,

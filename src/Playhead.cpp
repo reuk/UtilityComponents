@@ -1,4 +1,4 @@
-#include "Playhead.hpp"
+#include "UtilityComponents/Playhead.hpp"
 
 void Playhead::paint(Graphics& g) {
     g.fillAll(Colours::red);

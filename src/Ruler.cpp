@@ -1,8 +1,6 @@
-#include "Ruler.hpp"
+#include "UtilityComponents/Ruler.hpp"
 
-#include "Lerp.hpp"
-
-//#include "AngularLookAndFeel.hpp"
+#include "UtilityComponents/Lerp.hpp"
 
 #include <iomanip>
 #include <sstream>
@@ -13,11 +11,6 @@ Ruler::Ruler(PlaybackViewManager &m)
 Ruler::~Ruler() noexcept = default;
 
 void Ruler::paint(Graphics &g) {
-    //    AngularLookAndFeel::matte_foreground_box(
-    //            g,
-    //            Rectangle<int>(-2, 0, getWidth() + 4, getHeight()),
-    //            Colours::darkgrey);
-
     g.setFillType(FillType(ColourGradient(
             Colours::white, 0, 0, Colours::lightgrey, 0, getHeight(), false)));
 

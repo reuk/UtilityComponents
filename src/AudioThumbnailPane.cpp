@@ -1,6 +1,6 @@
-#include "AudioThumbnailPane.hpp"
+#include "UtilityComponents/AudioThumbnailPane.hpp"
 
-#include "Lerp.hpp"
+#include "UtilityComponents/Lerp.hpp"
 
 AudioThumbnailPane::AudioThumbnailPane(
         AudioFormatManager &audio_format_manager,

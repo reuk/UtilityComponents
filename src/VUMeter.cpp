@@ -1,4 +1,4 @@
-#include "VUMeter.hpp"
+#include "UtilityComponents/VUMeter.hpp"
 
 void BufferReader::push_buffer(const AudioSourceChannelInfo &buffer) {
     push_buffer(*buffer.buffer);

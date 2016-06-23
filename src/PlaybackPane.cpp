@@ -1,4 +1,4 @@
-#include "PlaybackPane.hpp"
+#include "UtilityComponents/PlaybackPane.hpp"
 
 PlaybackPane::PlaybackPane(AudioFormatManager& audio_format_manager,
                            AudioTransportSource& audio_transport_source,

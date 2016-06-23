@@ -1,6 +1,4 @@
-#include "TransportDisplay.hpp"
-
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "UtilityComponents/TransportDisplay.hpp"
 
 #include <chrono>
 #include <iomanip>

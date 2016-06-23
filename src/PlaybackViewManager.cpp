@@ -1,4 +1,4 @@
-#include "PlaybackViewManager.hpp"
+#include "UtilityComponents/PlaybackViewManager.hpp"
 
 void PlaybackViewManager::set_max_range(Range<double> r, bool notify) {
     max_range = r;
