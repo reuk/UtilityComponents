@@ -9,7 +9,6 @@ public:
     virtual ~Ruler() noexcept;
 
     void paint(Graphics& g) override;
-    void resized() override;
 
     double x_to_time(double x) const;
     double time_to_x(double time) const;

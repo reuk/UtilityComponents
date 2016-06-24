@@ -14,9 +14,12 @@ Range<double> PlaybackViewManager::get_max_range() const {
 }
 
 void PlaybackViewManager::set_visible_range(Range<double> r, bool notify) {
-    visible_range = max_range.constrainRange(r);
-    if (notify) {
-        notify_visible_range();
+    auto t = max_range.constrainRange(r);
+    if (visible_range != t) {
+        visible_range = t;
+        if (notify) {
+            notify_visible_range();
+        }
     }
 }
 void PlaybackViewManager::notify_visible_range() {

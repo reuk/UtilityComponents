@@ -14,8 +14,13 @@ Ruler::~Ruler() noexcept {
 }
 
 void Ruler::paint(Graphics &g) {
-    g.setFillType(FillType(ColourGradient(
-            Colours::darkgrey, 0, 0, Colours::darkgrey.darker(), 0, getHeight(), false)));
+    g.setFillType(FillType(ColourGradient(Colours::darkgrey,
+                                          0,
+                                          0,
+                                          Colours::darkgrey.darker(),
+                                          0,
+                                          getHeight(),
+                                          false)));
     g.fillAll();
     g.setFillType(FillType(ColourGradient(
             Colours::white, 0, 0, Colours::lightgrey, 0, getHeight(), false)));
@@ -50,9 +55,6 @@ void Ruler::paint(Graphics &g) {
                 getHeight(),
                 Justification::left);
     }
-}
-
-void Ruler::resized() {
 }
 
 double Ruler::x_to_time(double x) const {
@@ -104,21 +106,24 @@ void Ruler::mouseDrag(const MouseEvent &e) {
     auto scale = pow(2.0, dy / doubleDist);
 
     auto w = ruler_state->visible_range.getLength() * scale;
+    if (w >= playback_view_manager.get_max_range().getLength()) {
+        playback_view_manager.set_visible_range(
+                playback_view_manager.get_max_range(), true);
+    } else {
+        //  the length of the time range to display
+        auto clamped = std::max(0.001, w);
 
-    //  the length of the time range to display
-    auto clamped =
-            Range<double>(0.001,
-                          playback_view_manager.get_max_range().getLength())
-                    .clipValue(w);
+        //  move range so that ruler_state->mouse_down_time is at x
+        auto x = e.getPosition().x;
 
-    //  move range so that ruler_state->mouse_down_time is at x
-    auto x = e.getPosition().x;
+        auto left =
+                (0 - x) * clamped / getWidth() + ruler_state->mouse_down_time;
+        auto right = (getWidth() - x) * clamped / getWidth() +
+                     ruler_state->mouse_down_time;
 
-    auto left = (0 - x) * clamped / getWidth() + ruler_state->mouse_down_time;
-    auto right = (getWidth() - x) * clamped / getWidth() +
-                 ruler_state->mouse_down_time;
-
-    playback_view_manager.set_visible_range(Range<double>(left, right), true);
+        playback_view_manager.set_visible_range(Range<double>(left, right),
+                                                true);
+    }
 }
 
 void Ruler::mouseDoubleClick(const MouseEvent &event) {
