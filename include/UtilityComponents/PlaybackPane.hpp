@@ -30,6 +30,7 @@ public:
 
     void reset_view();
 
+    void paint(Graphics& g) override;
     void resized() override;
 
     void buttonClicked(Button* b) override;

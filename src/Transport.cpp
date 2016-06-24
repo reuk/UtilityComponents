@@ -1,11 +1,11 @@
 #include "UtilityComponents/Transport.hpp"
 
-Transport::Transport(AudioTransportSource &transportSource)
-        : transportSource(transportSource)
-        , transport_display(transportSource)
+Transport::Transport(AudioTransportSource &transport_source)
+        : transport_source(transport_source)
+        , transport_display(transport_source)
         , rewind_button("", DrawableButton::ImageFitted)
         , play_button("", DrawableButton::ImageFitted) {
-    transportSource.addChangeListener(this);
+    transport_source.addChangeListener(this);
 
     auto strokeWeight = 4;
     DrawableImage rewindDI;
@@ -94,30 +94,22 @@ void Transport::resized() {
 
 void Transport::buttonClicked(Button *b) {
     if (b == &rewind_button) {
-        listener_list.call(&Listener::transport_rewind, this);
+        transport_source.setPosition(0);
     } else if (b == &play_button) {
         if (b->getToggleState()) {
-            listener_list.call(&Listener::transport_play, this);
+            transport_source.start();
         } else {
-            listener_list.call(&Listener::transport_pause, this);
+            transport_source.stop();
         }
     }
 }
 
 void Transport::changeListenerCallback(ChangeBroadcaster *source) {
-    if (source == &transportSource) {
-        play_button.setToggleState(transportSource.isPlaying(),
+    if (source == &transport_source) {
+        play_button.setToggleState(transport_source.isPlaying(),
                                    dontSendNotification);
-        if (transportSource.hasStreamFinished()) {
-            listener_list.call(&Listener::transport_rewind, this);
+        if (transport_source.hasStreamFinished()) {
+            transport_source.setPosition(0);
         }
     }
-}
-
-void Transport::addListener(Listener *l) {
-    listener_list.add(l);
-}
-
-void Transport::removeListener(Listener *l) {
-    listener_list.remove(l);
 }

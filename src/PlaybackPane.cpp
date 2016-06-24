@@ -48,6 +48,10 @@ void PlaybackPane::reset_view() {
     transport_view_manager.reset_view();
 }
 
+void PlaybackPane::paint(Graphics& g) {
+    g.fillAll(Colours::darkgrey);
+}
+
 void PlaybackPane::resized() {
     auto bounds = getLocalBounds();
 
