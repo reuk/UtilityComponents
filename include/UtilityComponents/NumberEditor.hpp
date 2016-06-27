@@ -2,6 +2,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include <sstream>
+
 template <typename T>
 class IncDecButtons : public Component, public Button::Listener {
 public:
