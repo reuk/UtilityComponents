@@ -45,7 +45,7 @@ void AudioThumbnailPane::paint(Graphics &g) {
     }
 }
 void AudioThumbnailPane::resized() {
-    playhead.setSize(1, getHeight());
+    playhead.setSize(5, getHeight());
     position_playhead();
     repaint();
 }
@@ -99,6 +99,7 @@ double AudioThumbnailPane::x_to_time(double t) const {
 void AudioThumbnailPane::position_playhead() {
     playhead.setTopLeftPosition(
             time_to_x(transport_view_manager.audio_transport_source
-                              .getCurrentPosition()),
+                              .getCurrentPosition()) -
+                    (playhead.getWidth() * 0.5),
             0);
 }

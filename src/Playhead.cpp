@@ -1,7 +1,8 @@
 #include "UtilityComponents/Playhead.hpp"
 
 void Playhead::paint(Graphics& g) {
-    g.fillAll(Colours::red);
+    g.setColour(Colours::red);
+    g.drawVerticalLine(getWidth() * 0.5, 0, getHeight());
 }
 
 void Playhead::mouseEnter(const MouseEvent& e) {
