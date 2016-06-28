@@ -1,9 +1,9 @@
 #include "UtilityComponents/VUMeter.hpp"
 
-void BufferReader::push_buffer(const AudioSourceChannelInfo &buffer) {
+void BufferReader::push_buffer(const juce::AudioSourceChannelInfo &buffer) {
     push_buffer(*buffer.buffer);
 }
-void BufferReader::push_buffer(const AudioSampleBuffer &buffer) {
+void BufferReader::push_buffer(const juce::AudioSampleBuffer &buffer) {
     push_buffer(buffer.getArrayOfReadPointers(),
                 buffer.getNumChannels(),
                 buffer.getNumSamples());

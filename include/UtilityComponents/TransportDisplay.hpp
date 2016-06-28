@@ -1,21 +1,23 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_audio_devices/juce_audio_devices.h"
+#include "juce_events/juce_events.h"
+#include "juce_gui_basics/juce_gui_basics.h"
 
 #include <memory>
 
-class TransportDisplay : public Component, public Timer {
+class TransportDisplay : public juce::Component, public juce::Timer {
 public:
-    TransportDisplay(AudioTransportSource& audioTransportSource);
+    TransportDisplay(juce::AudioTransportSource& audioTransportSource);
     virtual ~TransportDisplay() noexcept = default;
 
-    void paint(Graphics& g) override;
+    void paint(juce::Graphics& g) override;
     void resized() override;
 
     void timerCallback() override;
 
 private:
-    AudioTransportSource& audioTransportSource;
+    juce::AudioTransportSource& audioTransportSource;
 
-    Label label;
+    juce::Label label;
 };

@@ -19,43 +19,44 @@ void FileDropComponent::removeListener(Listener* l) {
     listener_list.remove(l);
 }
 
-void FileDropComponent::buttonClicked(Button* b) {
+void FileDropComponent::buttonClicked(juce::Button* b) {
     if (b == &load_button) {
-        FileChooser fc("open...", File::nonexistent, valid_file_formats);
+        juce::FileChooser fc(
+                "open...", juce::File::nonexistent, valid_file_formats);
         if (fc.browseForFileToOpen()) {
             listener_list.call(&Listener::file_dropped, this, fc.getResult());
         }
     }
 }
 
-void FileDropComponent::paint(Graphics& g) {
-    g.fillAll(Colours::darkgrey);
+void FileDropComponent::paint(juce::Graphics& g) {
+    g.fillAll(juce::Colours::darkgrey);
 
     auto indent = 30;
-    Path p;
+    juce::Path p;
     p.addRoundedRectangle(indent,
                           indent,
                           getWidth() - indent * 2,
                           getHeight() - indent * 2,
                           30);
-    Path d;
-    PathStrokeType pathStrokeType(8);
+    juce::Path d;
+    juce::PathStrokeType pathStrokeType(8);
     float dashLengths[] = {8, 8};
     pathStrokeType.createDashedStroke(d, p, dashLengths, 2);
 
     if (file_drag) {
-        g.setColour(Colours::white);
+        g.setColour(juce::Colours::white);
     } else {
-        g.setColour(Colours::lightgrey);
+        g.setColour(juce::Colours::lightgrey);
     }
     g.fillPath(d);
     g.setFont(20);
-    g.setColour(Colours::lightgrey);
+    g.setColour(juce::Colours::lightgrey);
 
     auto button_bounds = load_button.getBounds();
     auto text_bounds = button_bounds.withPosition(button_bounds.getX(),
                                                   button_bounds.getY() - 50);
-    g.drawFittedText(back_text, text_bounds, Justification::centred, 2);
+    g.drawFittedText(back_text, text_bounds, juce::Justification::centred, 2);
 }
 
 void FileDropComponent::resized() {
@@ -66,19 +67,19 @@ void FileDropComponent::set_valid_file_formats(const std::string& f) {
     valid_file_formats = f;
 }
 
-bool FileDropComponent::isInterestedInFileDrag(const StringArray& files) {
-    WildcardFileFilter filter(valid_file_formats, "*", "valid extensions");
+bool FileDropComponent::isInterestedInFileDrag(const juce::StringArray& files) {
+    juce::WildcardFileFilter filter(valid_file_formats, "*", "valid extensions");
     return files.size() == 1 && filter.isFileSuitable(files[0]);
 }
-void FileDropComponent::fileDragEnter(const StringArray& files, int x, int y) {
+void FileDropComponent::fileDragEnter(const juce::StringArray& files, int x, int y) {
     file_drag = true;
     repaint();
 }
-void FileDropComponent::fileDragExit(const StringArray& files) {
+void FileDropComponent::fileDragExit(const juce::StringArray& files) {
     file_drag = false;
     repaint();
 }
-void FileDropComponent::filesDropped(const StringArray& files, int x, int y) {
+void FileDropComponent::filesDropped(const juce::StringArray& files, int x, int y) {
     assert(isInterestedInFileDrag(files));
     file_drag = false;
     repaint();

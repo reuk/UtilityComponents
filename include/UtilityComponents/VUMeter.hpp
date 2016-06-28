@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_audio_devices/juce_audio_devices.h"
 
 #include <numeric>
 
@@ -8,8 +8,8 @@ class BufferReader {
 public:
     virtual ~BufferReader() noexcept = default;
 
-    void push_buffer(const AudioSourceChannelInfo &buffer);
-    void push_buffer(const AudioSampleBuffer &buffer);
+    void push_buffer(const juce::AudioSourceChannelInfo &buffer);
+    void push_buffer(const juce::AudioSampleBuffer &buffer);
     void push_buffer(const float **channel_data,
                      int num_channels,
                      int num_samples);
@@ -71,7 +71,7 @@ private:
 
 //----------------------------------------------------------------------------//
 
-class VUMeter : public BufferReader, private Timer {
+class VUMeter : public BufferReader, private juce::Timer {
 public:
     class Listener {
     public:
@@ -102,11 +102,11 @@ private:
 
     void timerCallback() override;
 
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
     Meter meter;
 };
 
-class DualVUMeter : public BufferReader, private Timer {
+class DualVUMeter : public BufferReader, private juce::Timer {
 public:
     class Listener {
     public:
@@ -142,7 +142,7 @@ private:
 
     void timerCallback() override;
 
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
     Meter abs_meter;
     Meter rms_meter;
 };

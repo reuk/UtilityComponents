@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_events/juce_events.h"
+#include "juce_audio_devices/juce_audio_devices.h"
 
 class PlaybackViewManager {
 public:
@@ -14,9 +15,9 @@ public:
         virtual ~Listener() noexcept = default;
 
         virtual void max_range_changed(PlaybackViewManager *r,
-                                       const Range<double> &range) = 0;
+                                       const juce::Range<double> &range) = 0;
         virtual void visible_range_changed(PlaybackViewManager *r,
-                                           const Range<double> &range) = 0;
+                                           const juce::Range<double> &range) = 0;
         virtual void current_time_changed(PlaybackViewManager *r,
                                           double time) = 0;
     };
@@ -24,12 +25,12 @@ public:
     PlaybackViewManager() = default;
     virtual ~PlaybackViewManager() noexcept = default;
 
-    void set_max_range(Range<double> r, bool notify);
-    Range<double> get_max_range() const;
+    void set_max_range(juce::Range<double> r, bool notify);
+    juce::Range<double> get_max_range() const;
     void notify_max_range();
 
-    void set_visible_range(Range<double> r, bool notify);
-    Range<double> get_visible_range() const;
+    void set_visible_range(juce::Range<double> r, bool notify);
+    juce::Range<double> get_visible_range() const;
     void notify_visible_range();
 
     void set_follow_playback(bool b);
@@ -42,28 +43,28 @@ protected:
     void set_current_time(double t);
 
 private:
-    Range<double> max_range;
-    Range<double> visible_range;
+    juce::Range<double> max_range;
+    juce::Range<double> visible_range;
     bool follow_playback{true};
 
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
 };
 
 //----------------------------------------------------------------------------//
 
 class TransportViewManager : public PlaybackViewManager,
-                             public Timer,
-                             public ChangeListener {
+                             public juce::Timer,
+                             public juce::ChangeListener {
 public:
-    TransportViewManager(AudioTransportSource &audio_transport_source);
+    TransportViewManager(juce::AudioTransportSource &audio_transport_source);
     virtual ~TransportViewManager() noexcept;
 
     void reset_view();
 
-    void changeListenerCallback(ChangeBroadcaster *cb) override;
+    void changeListenerCallback(juce::ChangeBroadcaster *cb) override;
     void timerCallback() override;
 
     void trigger();
 
-    AudioTransportSource &audio_transport_source;
+    juce::AudioTransportSource &audio_transport_source;
 };

@@ -5,23 +5,23 @@
 #include <memory>
 #include <sstream>
 
-TransportDisplay::TransportDisplay(AudioTransportSource& audioTransportSource)
+TransportDisplay::TransportDisplay(juce::AudioTransportSource& audioTransportSource)
         : audioTransportSource(audioTransportSource) {
-    label.setColour(Label::textColourId, Colours::lightgrey);
+    label.setColour(juce::Label::textColourId, juce::Colours::lightgrey);
     addAndMakeVisible(label);
 
     startTimer(10);
 }
 
-void TransportDisplay::paint(Graphics& g) {
-    g.setColour(Colour(0x40, 0x40, 0x40));
+void TransportDisplay::paint(juce::Graphics& g) {
+    g.setColour(juce::Colour(0x40, 0x40, 0x40));
     g.fillRoundedRectangle(0, 2, getWidth(), getHeight() - 2, 4);
 
-    g.setColour(Colour(0x10, 0x10, 0x10));
+    g.setColour(juce::Colour(0x10, 0x10, 0x10));
     g.fillRoundedRectangle(0, 0, getWidth(), getHeight() - 2, 4);
 
-    uint8 rr = 0x00, gg = 0x00, bb = 0x00, aa = 0x80;
-    g.setColour(Colour(rr, gg, bb, aa));
+    juce::uint8 rr = 0x00, gg = 0x00, bb = 0x00, aa = 0x80;
+    g.setColour(juce::Colour(rr, gg, bb, aa));
     g.fillRoundedRectangle(0, 1, getWidth(), getHeight() - 2, 4);
 }
 
@@ -48,5 +48,5 @@ void TransportDisplay::timerCallback() {
     ss << std::setfill('0') << std::setw(2) << minutes.count() << ":";
     ss << std::setfill('0') << std::setw(2) << seconds.count() << ".";
     ss << std::setfill('0') << std::setw(2) << hunds.count();
-    label.setText(ss.str(), dontSendNotification);
+    label.setText(ss.str(), juce::dontSendNotification);
 }

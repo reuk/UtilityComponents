@@ -2,12 +2,12 @@
 
 #include "FileDropComponent.hpp"
 
-class LoadWindow : public DocumentWindow {
+class LoadWindow : public juce::DocumentWindow {
 public:
-    LoadWindow(String name,
+    LoadWindow(juce::String name,
                DocumentWindow::TitleBarButtons buttons,
                const std::string& file_formats,
-               ApplicationCommandManager& command_manager);
+               juce::ApplicationCommandManager& command_manager);
 
     void closeButtonPressed() override;
 

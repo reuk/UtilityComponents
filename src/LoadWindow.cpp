@@ -1,10 +1,10 @@
 #include "UtilityComponents/LoadWindow.hpp"
 
-LoadWindow::LoadWindow(String name,
+LoadWindow::LoadWindow(juce::String name,
                        DocumentWindow::TitleBarButtons buttons,
                        const std::string& file_formats,
-                       ApplicationCommandManager& command_manager)
-        : DocumentWindow(name, Colours::lightgrey, buttons) {
+                       juce::ApplicationCommandManager& command_manager)
+        : DocumentWindow(name, juce::Colours::lightgrey, buttons) {
     content_component.setSize(600, 400);
     content_component.set_valid_file_formats(file_formats);
     setContentNonOwned(&content_component, true);
@@ -18,7 +18,7 @@ LoadWindow::LoadWindow(String name,
 }
 
 void LoadWindow::closeButtonPressed() {
-    JUCEApplication::getInstance()->systemRequestedQuit();
+    juce::JUCEApplication::getInstance()->systemRequestedQuit();
 }
 
 const FileDropComponent& LoadWindow::get_content() const {

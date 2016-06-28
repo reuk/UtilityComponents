@@ -1,6 +1,8 @@
 #include "UtilityComponents/PlaybackViewManager.hpp"
 
-void PlaybackViewManager::set_max_range(Range<double> r, bool notify) {
+#include "juce_events/juce_events.h"
+
+void PlaybackViewManager::set_max_range(juce::Range<double> r, bool notify) {
     max_range = r;
     if (notify) {
         notify_max_range();
@@ -9,11 +11,11 @@ void PlaybackViewManager::set_max_range(Range<double> r, bool notify) {
 void PlaybackViewManager::notify_max_range() {
     listener_list.call(&Listener::max_range_changed, this, max_range);
 }
-Range<double> PlaybackViewManager::get_max_range() const {
+juce::Range<double> PlaybackViewManager::get_max_range() const {
     return max_range;
 }
 
-void PlaybackViewManager::set_visible_range(Range<double> r, bool notify) {
+void PlaybackViewManager::set_visible_range(juce::Range<double> r, bool notify) {
     auto t = max_range.constrainRange(r);
     if (visible_range != t) {
         visible_range = t;
@@ -25,7 +27,7 @@ void PlaybackViewManager::set_visible_range(Range<double> r, bool notify) {
 void PlaybackViewManager::notify_visible_range() {
     listener_list.call(&Listener::visible_range_changed, this, visible_range);
 }
-Range<double> PlaybackViewManager::get_visible_range() const {
+juce::Range<double> PlaybackViewManager::get_visible_range() const {
     return visible_range;
 }
 
@@ -56,9 +58,9 @@ void PlaybackViewManager::removeListener(Listener *l) {
 //----------------------------------------------------------------------------//
 
 TransportViewManager::TransportViewManager(
-        AudioTransportSource &audio_transport_source)
+        juce::AudioTransportSource &audio_transport_source)
         : audio_transport_source(audio_transport_source) {
-    auto r = Range<double>(0, audio_transport_source.getLengthInSeconds());
+    auto r = juce::Range<double>(0, audio_transport_source.getLengthInSeconds());
     set_max_range(r, true);
     set_visible_range(r, true);
 
@@ -70,7 +72,7 @@ TransportViewManager::~TransportViewManager() noexcept {
 }
 
 void TransportViewManager::reset_view() {
-    auto r = Range<double>(0, audio_transport_source.getLengthInSeconds());
+    auto r = juce::Range<double>(0, audio_transport_source.getLengthInSeconds());
     set_max_range(r, true);
     set_visible_range(r, true);
 }
@@ -79,7 +81,7 @@ void TransportViewManager::timerCallback() {
     set_current_time(audio_transport_source.getCurrentPosition());
 }
 
-void TransportViewManager::changeListenerCallback(ChangeBroadcaster *cb) {
+void TransportViewManager::changeListenerCallback(juce::ChangeBroadcaster *cb) {
     if (cb == &audio_transport_source) {
         if (audio_transport_source.isPlaying()) {
             startTimer(15);

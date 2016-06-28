@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_gui_basics/juce_gui_basics.h"
 
-class FileDropComponent : public Component,
-                          public FileDragAndDropTarget,
-                          public Button::Listener {
+class FileDropComponent : public juce::Component,
+                          public juce::FileDragAndDropTarget,
+                          public juce::Button::Listener {
 public:
     class Listener {
     public:
@@ -15,21 +15,21 @@ public:
         Listener& operator=(Listener&&) noexcept = default;
         virtual ~Listener() noexcept = default;
 
-        virtual void file_dropped(FileDropComponent*, const File& f) = 0;
+        virtual void file_dropped(FileDropComponent*, const juce::File& f) = 0;
     };
 
     FileDropComponent(const std::string& back, const std::string& button);
     virtual ~FileDropComponent() noexcept;
 
-    void paint(Graphics& g) override;
+    void paint(juce::Graphics& g) override;
     void resized() override;
 
-    bool isInterestedInFileDrag(const StringArray& files) override;
-    void fileDragEnter(const StringArray& files, int x, int y) override;
-    void fileDragExit(const StringArray& files) override;
-    void filesDropped(const StringArray& files, int x, int y) override;
+    bool isInterestedInFileDrag(const juce::StringArray& files) override;
+    void fileDragEnter(const juce::StringArray& files, int x, int y) override;
+    void fileDragExit(const juce::StringArray& files) override;
+    void filesDropped(const juce::StringArray& files, int x, int y) override;
 
-    void buttonClicked(Button* b) override;
+    void buttonClicked(juce::Button* b) override;
 
     void set_valid_file_formats(const std::string& f);
 
@@ -42,7 +42,7 @@ private:
 
     std::string valid_file_formats{"*"};
 
-    TextButton load_button;
+    juce::TextButton load_button;
 
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
 };

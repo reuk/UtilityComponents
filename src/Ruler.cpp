@@ -13,17 +13,23 @@ Ruler::~Ruler() noexcept {
     playback_view_manager.removeListener(this);
 }
 
-void Ruler::paint(Graphics &g) {
-    g.setFillType(FillType(ColourGradient(Colours::darkgrey,
-                                          0,
-                                          0,
-                                          Colours::darkgrey.darker(),
-                                          0,
-                                          getHeight(),
-                                          false)));
+void Ruler::paint(juce::Graphics &g) {
+    g.setFillType(juce::FillType(
+            juce::ColourGradient(juce::Colours::darkgrey,
+                                 0,
+                                 0,
+                                 juce::Colours::darkgrey.darker(),
+                                 0,
+                                 getHeight(),
+                                 false)));
     g.fillAll();
-    g.setFillType(FillType(ColourGradient(
-            Colours::white, 0, 0, Colours::lightgrey, 0, getHeight(), false)));
+    g.setFillType(juce::FillType(juce::ColourGradient(juce::Colours::white,
+                                                      0,
+                                                      0,
+                                                      juce::Colours::lightgrey,
+                                                      0,
+                                                      getHeight(),
+                                                      false)));
 
     auto minDivision = 30;
     auto prec = std::ceil(
@@ -41,7 +47,7 @@ void Ruler::paint(Graphics &g) {
          i += s) {
         auto pos = lerp(i,
                         playback_view_manager.get_visible_range(),
-                        Range<double>(0, getWidth()));
+                        juce::Range<double>(0, getWidth()));
         g.drawVerticalLine(pos, 2, getHeight() - 2);
         std::stringstream ss;
         ss << std::fixed << std::setprecision(std::max(0.0, -prec)) << i;
@@ -53,51 +59,51 @@ void Ruler::paint(Graphics &g) {
                 s * getWidth() /
                         playback_view_manager.get_visible_range().getLength(),
                 getHeight(),
-                Justification::left);
+                juce::Justification::left);
     }
 }
 
 double Ruler::x_to_time(double x) const {
     return lerp(x,
-                Range<double>(0, getWidth()),
+                juce::Range<double>(0, getWidth()),
                 playback_view_manager.get_visible_range());
 }
 
 double Ruler::time_to_x(double time) const {
     return lerp(time,
                 playback_view_manager.get_visible_range(),
-                Range<double>(0, getWidth()));
+                juce::Range<double>(0, getWidth()));
 }
 
 struct Ruler::RulerState {
-    RulerState(double mouse_down_time, Range<double> visible_range)
+    RulerState(double mouse_down_time, juce::Range<double> visible_range)
             : mouse_down_time(mouse_down_time)
             , visible_range(visible_range) {
     }
     double mouse_down_time;
-    Range<double> visible_range;
+    juce::Range<double> visible_range;
 };
 
-void Ruler::mouseEnter(const MouseEvent &event) {
-    setMouseCursor(MouseCursor::LeftRightResizeCursor);
+void Ruler::mouseEnter(const juce::MouseEvent &event) {
+    setMouseCursor(juce::MouseCursor::LeftRightResizeCursor);
 }
 
-void Ruler::mouseDown(const MouseEvent &e) {
+void Ruler::mouseDown(const juce::MouseEvent &e) {
     ruler_state = std::make_unique<RulerState>(
             x_to_time(e.getMouseDownX()),
             playback_view_manager.get_visible_range());
     e.source.enableUnboundedMouseMovement(true, false);
 }
 
-void Ruler::mouseUp(const MouseEvent &event) {
+void Ruler::mouseUp(const juce::MouseEvent &event) {
     ruler_state = nullptr;
 }
 
-void Ruler::mouseExit(const MouseEvent &event) {
-    setMouseCursor(MouseCursor::NormalCursor);
+void Ruler::mouseExit(const juce::MouseEvent &event) {
+    setMouseCursor(juce::MouseCursor::NormalCursor);
 }
 
-void Ruler::mouseDrag(const MouseEvent &e) {
+void Ruler::mouseDrag(const juce::MouseEvent &e) {
     assert(ruler_state);
 
     auto dy = -e.getDistanceFromDragStartY();
@@ -121,23 +127,23 @@ void Ruler::mouseDrag(const MouseEvent &e) {
         auto right = (getWidth() - x) * clamped / getWidth() +
                      ruler_state->mouse_down_time;
 
-        playback_view_manager.set_visible_range(Range<double>(left, right),
-                                                true);
+        playback_view_manager.set_visible_range(
+                juce::Range<double>(left, right), true);
     }
 }
 
-void Ruler::mouseDoubleClick(const MouseEvent &event) {
+void Ruler::mouseDoubleClick(const juce::MouseEvent &event) {
     playback_view_manager.set_visible_range(
             playback_view_manager.get_max_range(), true);
 }
 
 void Ruler::max_range_changed(PlaybackViewManager *r,
-                              const Range<double> &range) {
+                              const juce::Range<double> &range) {
     repaint();
 }
 
 void Ruler::visible_range_changed(PlaybackViewManager *r,
-                                  const Range<double> &range) {
+                                  const juce::Range<double> &range) {
     repaint();
 }
 

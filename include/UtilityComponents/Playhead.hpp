@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_gui_basics/juce_gui_basics.h"
 
-class Playhead : public Component {
+class Playhead : public juce::Component {
 public:
     class Listener {
     public:
@@ -13,18 +13,18 @@ public:
         Listener& operator=(Listener&&) noexcept = default;
         virtual ~Listener() noexcept = default;
 
-        virtual void playhead_dragged(Playhead*, const MouseEvent& e) = 0;
+        virtual void playhead_dragged(Playhead*, const juce::MouseEvent& e) = 0;
     };
 
-    void paint(Graphics& g) override;
+    void paint(juce::Graphics& g) override;
 
-    void mouseEnter(const MouseEvent& e) override;
-    void mouseExit(const MouseEvent& e) override;
-    void mouseDrag(const MouseEvent& e) override;
+    void mouseEnter(const juce::MouseEvent& e) override;
+    void mouseExit(const juce::MouseEvent& e) override;
+    void mouseDrag(const juce::MouseEvent& e) override;
 
     void addListener(Listener* l);
     void removeListener(Listener* l);
 
 private:
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
 };

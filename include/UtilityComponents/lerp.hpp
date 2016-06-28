@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_core/juce_core.h"
 
 template <typename T>
 T lerp(T i, T in_lo, T in_hi, T out_lo, T out_hi) {
@@ -8,6 +8,6 @@ T lerp(T i, T in_lo, T in_hi, T out_lo, T out_hi) {
 }
 
 template <typename T>
-T lerp(T i, Range<T> in, Range<T> out) {
+T lerp(T i, juce::Range<T> in, juce::Range<T> out) {
     return lerp(i, in.getStart(), in.getEnd(), out.getStart(), out.getEnd());
 }

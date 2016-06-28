@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "juce_gui_basics/juce_gui_basics.h"
 
 #include <sstream>
 
 template <typename T>
-class IncDecButtons : public Component, public Button::Listener {
+class IncDecButtons : public juce::Component, public juce::Button::Listener {
 public:
     class Listener {
     public:
@@ -59,7 +59,7 @@ public:
         listener_list.remove(l);
     }
 
-    void mouseDown(const MouseEvent& e) override {
+    void mouseDown(const juce::MouseEvent& e) override {
         dragged = false;
         mouse_start_pos = mouse_pos_when_last_dragged = e.position;
         if (isEnabled()) {
@@ -69,7 +69,7 @@ public:
         }
     }
 
-    void handleDrag(const MouseEvent& e) {
+    void handleDrag(const juce::MouseEvent& e) {
         auto mouse_diff = e.position.x - mouse_start_pos.x;
 
         constexpr auto pixels_for_single_increment = 50;
@@ -78,15 +78,15 @@ public:
 
         auto since_last = e.position.x - mouse_pos_when_last_dragged.x;
 
-        add_button.setState(since_last < 0 ? Button::buttonNormal
-                                           : Button::buttonOver);
-        sub_button.setState(since_last > 0 ? Button::buttonNormal
-                                           : Button::buttonOver);
+        add_button.setState(since_last < 0 ? juce::Button::buttonNormal
+                                           : juce::Button::buttonOver);
+        sub_button.setState(since_last > 0 ? juce::Button::buttonNormal
+                                           : juce::Button::buttonOver);
 
         e.source.enableUnboundedMouseMovement(true, false);
     }
 
-    void mouseDrag(const MouseEvent& e) override {
+    void mouseDrag(const juce::MouseEvent& e) override {
         if (isEnabled()) {
             if (!dragged) {
                 if (e.getDistanceFromDragStart() < 10 ||
@@ -109,38 +109,38 @@ public:
         }
     }
 
-    void mouseUp(const MouseEvent& e) override {
+    void mouseUp(const juce::MouseEvent& e) override {
         if (isEnabled()) {
-            add_button.setState(Button::buttonNormal);
-            sub_button.setState(Button::buttonNormal);
+            add_button.setState(juce::Button::buttonNormal);
+            sub_button.setState(juce::Button::buttonNormal);
         }
     }
 
-    void buttonClicked(Button* b) override {
+    void buttonClicked(juce::Button* b) override {
         listener_list.call(&Listener::apply_increment,
                            this,
                            b == &add_button ? increment : -increment);
     }
 
 private:
-    TextButton sub_button{"-"};
-    TextButton add_button{"+"};
+    juce::TextButton sub_button{"-"};
+    juce::TextButton add_button{"+"};
 
     T increment{1};
 
     bool dragged{false};
-    Point<float> mouse_start_pos;
-    Point<float> mouse_pos_when_last_dragged;
+    juce::Point<float> mouse_start_pos;
+    juce::Point<float> mouse_pos_when_last_dragged;
     T value_on_mouse_down;
     T value_on_prev_frame;
     T value_when_last_dragged;
 
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
 };
 
 template <typename T>
-class NumberEditor : public Component,
-                     public TextEditor::Listener,
+class NumberEditor : public juce::Component,
+                     public juce::TextEditor::Listener,
                      public IncDecButtons<T>::Listener {
 public:
     class Listener {
@@ -185,13 +185,13 @@ public:
         }
     }
 
-    void textEditorEscapeKeyPressed(TextEditor& editor) override {
+    void textEditorEscapeKeyPressed(juce::TextEditor& editor) override {
         if (&editor == &text_editor) {
             set_value(get_value(), false);
         }
     }
 
-    void textEditorReturnKeyPressed(TextEditor& editor) override {
+    void textEditorReturnKeyPressed(juce::TextEditor& editor) override {
         if (&editor == &text_editor) {
             try {
                 set_value(std::stof(editor.getText().toStdString()), true);
@@ -203,9 +203,9 @@ public:
         }
     }
 
-    void textEditorFocusLost(TextEditor& editor) override {
+    void textEditorFocusLost(juce::TextEditor& editor) override {
         textEditorReturnKeyPressed(editor);
-        editor.setHighlightedRegion(Range<int>(0, 0));
+        editor.setHighlightedRegion(juce::Range<int>(0, 0));
     }
 
     void set_value(T x, bool send_changed) {
@@ -233,7 +233,7 @@ public:
         return inc_dec_buttons.get_increment();
     }
 
-    void set_clipping(const Range<T>& r) {
+    void set_clipping(const juce::Range<T>& r) {
         set_value_processor = std::make_unique<ClippingValueProcessor>(r);
     }
 
@@ -262,7 +262,7 @@ private:
     };
 
     struct ClippingValueProcessor : public SetValueProcessor {
-        ClippingValueProcessor(const Range<T>& range)
+        ClippingValueProcessor(const juce::Range<T>& range)
                 : range(range) {
         }
         T process(T in) const override {
@@ -270,15 +270,15 @@ private:
         }
 
     private:
-        Range<T> range;
+        juce::Range<T> range;
     };
 
     std::unique_ptr<SetValueProcessor> set_value_processor;
 
-    TextEditor text_editor;
+    juce::TextEditor text_editor;
     IncDecButtons<T> inc_dec_buttons;
 
     T value{0};
 
-    ListenerList<Listener> listener_list;
+    juce::ListenerList<Listener> listener_list;
 };
