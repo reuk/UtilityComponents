@@ -13,7 +13,7 @@ void BareBonesVUMeter::paint(juce::Graphics& g) {
                 juce::Decibels::gainToDecibels(g));
     };
 
-    const auto peaking_db = -3.0;
+    const auto peaking_db = -0.0;
     const auto peaking_prop = gain_transform::db_gain_to_proportion(peaking_db);
 
     const auto abs_prop = get_proportion(vu_meter.get_abs_level());
