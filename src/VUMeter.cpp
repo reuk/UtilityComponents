@@ -79,6 +79,10 @@ void VUMeter::removeListener(Listener *l) {
     listener_list.remove(l);
 }
 
+void VUMeter::on_change() {
+    listener_list.call(&Listener::vu_meter_level_changed, this, get_level());
+}
+
 void VUMeter::do_push_buffer(const float **channel_data,
                              int num_channels,
                              int num_samples) {
@@ -109,6 +113,13 @@ DualVUMeter::DualVUMeter(size_t channel)
     startTimerHz(60);
 }
 
+void DualVUMeter::on_change() {
+    listener_list.call(&Listener::vu_meter_levels_changed,
+                       this,
+                       get_abs_level(),
+                       get_rms_level());
+}
+
 void DualVUMeter::do_push_buffer(const float **channel_data,
                                  int num_channels,
                                  int num_samples) {
@@ -122,10 +133,7 @@ void DualVUMeter::reset() {
 }
 
 void DualVUMeter::timerCallback() {
-    listener_list.call(&Listener::vu_meter_levels_changed,
-                       this,
-                       get_abs_level(),
-                       get_rms_level());
+    on_change();
     abs_meter.update();
     rms_meter.update();
 }

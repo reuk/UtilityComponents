@@ -96,6 +96,8 @@ public:
     void removeListener(Listener *l);
 
 private:
+    void on_change();
+
     void do_push_buffer(const float **channel_data,
                         int num_channels,
                         int num_samples) override;
@@ -136,6 +138,8 @@ public:
     void removeListener(Listener *l);
 
 private:
+    void on_change();
+
     void do_push_buffer(const float **channel_data,
                         int num_channels,
                         int num_samples) override;
