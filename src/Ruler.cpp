@@ -5,12 +5,12 @@
 #include <iomanip>
 #include <sstream>
 
-Ruler::Ruler(PlaybackViewManager &m)
-        : playback_view_manager(m) {
-    playback_view_manager.addListener(this);
+Ruler::Ruler(TransportViewManager &m)
+        : transport_view_manager(m) {
+    transport_view_manager.addListener(this);
 }
 Ruler::~Ruler() noexcept {
-    playback_view_manager.removeListener(this);
+    transport_view_manager.removeListener(this);
 }
 
 void Ruler::paint(juce::Graphics &g) {
@@ -33,20 +33,21 @@ void Ruler::paint(juce::Graphics &g) {
 
     auto minDivision = 30;
     auto prec = std::ceil(
-            std::log10((playback_view_manager.get_visible_range().getLength() *
+            std::log10((transport_view_manager.get_visible_range().getLength() *
                         minDivision) /
                        getWidth()));
     auto s = std::pow(10, prec);
 
     auto begin =
-            std::floor(playback_view_manager.get_visible_range().getStart() /
+            std::floor(transport_view_manager.get_visible_range().getStart() /
                        s) *
             s;
 
-    for (auto i = begin; i < playback_view_manager.get_visible_range().getEnd();
+    for (auto i = begin;
+         i < transport_view_manager.get_visible_range().getEnd();
          i += s) {
         auto pos = lerp(i,
-                        playback_view_manager.get_visible_range(),
+                        transport_view_manager.get_visible_range(),
                         juce::Range<double>(0, getWidth()));
         g.drawVerticalLine(pos, 2, getHeight() - 2);
         std::stringstream ss;
@@ -57,7 +58,7 @@ void Ruler::paint(juce::Graphics &g) {
                 pos + 2,
                 0,
                 s * getWidth() /
-                        playback_view_manager.get_visible_range().getLength(),
+                        transport_view_manager.get_visible_range().getLength(),
                 getHeight(),
                 juce::Justification::left);
     }
@@ -66,12 +67,12 @@ void Ruler::paint(juce::Graphics &g) {
 double Ruler::x_to_time(double x) const {
     return lerp(x,
                 juce::Range<double>(0, getWidth()),
-                playback_view_manager.get_visible_range());
+                transport_view_manager.get_visible_range());
 }
 
 double Ruler::time_to_x(double time) const {
     return lerp(time,
-                playback_view_manager.get_visible_range(),
+                transport_view_manager.get_visible_range(),
                 juce::Range<double>(0, getWidth()));
 }
 
@@ -91,7 +92,7 @@ void Ruler::mouseEnter(const juce::MouseEvent &event) {
 void Ruler::mouseDown(const juce::MouseEvent &e) {
     ruler_state = std::make_unique<RulerState>(
             x_to_time(e.getMouseDownX()),
-            playback_view_manager.get_visible_range());
+            transport_view_manager.get_visible_range());
     e.source.enableUnboundedMouseMovement(true, false);
 }
 
@@ -112,9 +113,8 @@ void Ruler::mouseDrag(const juce::MouseEvent &e) {
     auto scale = pow(2.0, dy / doubleDist);
 
     auto w = ruler_state->visible_range.getLength() * scale;
-    if (w >= playback_view_manager.get_max_range().getLength()) {
-        playback_view_manager.set_visible_range(
-                playback_view_manager.get_max_range(), true);
+    if (w >= transport_view_manager.get_max_length()) {
+        transport_view_manager.reset_view();
     } else {
         //  the length of the time range to display
         auto clamped = std::max(0.001, w);
@@ -127,26 +127,16 @@ void Ruler::mouseDrag(const juce::MouseEvent &e) {
         auto right = (getWidth() - x) * clamped / getWidth() +
                      ruler_state->mouse_down_time;
 
-        playback_view_manager.set_visible_range(
+        transport_view_manager.set_visible_range(
                 juce::Range<double>(left, right), true);
     }
 }
 
 void Ruler::mouseDoubleClick(const juce::MouseEvent &event) {
-    playback_view_manager.set_visible_range(
-            playback_view_manager.get_max_range(), true);
+    transport_view_manager.reset_view();
 }
 
-void Ruler::max_range_changed(PlaybackViewManager *r,
-                              const juce::Range<double> &range) {
-    repaint();
-}
-
-void Ruler::visible_range_changed(PlaybackViewManager *r,
+void Ruler::visible_range_changed(TransportViewManager *r,
                                   const juce::Range<double> &range) {
     repaint();
-}
-
-void Ruler::current_time_changed(PlaybackViewManager *r, double time) {
-    //    repaint();
 }

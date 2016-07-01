@@ -13,8 +13,8 @@ public:
         Listener& operator=(Listener&&) noexcept = default;
 
         virtual void gain_slider_value_changed(GainSlider*) = 0;
-        virtual void gain_slider_drag_started(GainSlider*) = 0;
-        virtual void gain_slider_drag_ended(GainSlider*) = 0;
+        virtual void gain_slider_drag_started(GainSlider*) {}
+        virtual void gain_slider_drag_ended(GainSlider*) {}
     };
 
     enum class Orientation { horizontal, vertical };
@@ -27,6 +27,9 @@ public:
     void sliderValueChanged(juce::Slider*) override;
     void sliderDragStarted(juce::Slider*) override;
     void sliderDragEnded(juce::Slider*) override;
+
+    double get_gain() const;
+    void set_gain(double g, juce::NotificationType notify);
 
     void addListener(Listener* l);
     void removeListener(Listener* l);

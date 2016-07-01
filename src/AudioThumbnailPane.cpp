@@ -3,9 +3,11 @@
 #include "UtilityComponents/Lerp.hpp"
 
 AudioThumbnailPane::AudioThumbnailPane(
+        juce::AudioTransportSource &audio_transport_source,
         juce::AudioFormatManager &audio_format_manager,
         TransportViewManager &transport_view_manager)
-        : transport_view_manager(transport_view_manager)
+        : audio_transport_source(audio_transport_source)
+        , transport_view_manager(transport_view_manager)
         , audio_thumbnail_cache(16)
         , audio_thumbnail(256, audio_format_manager, audio_thumbnail_cache) {
     addAndMakeVisible(playhead);
@@ -44,6 +46,7 @@ void AudioThumbnailPane::paint(juce::Graphics &g) {
                 1.0);
     }
 }
+
 void AudioThumbnailPane::resized() {
     playhead.setSize(5, getHeight());
     position_playhead();
@@ -55,34 +58,29 @@ void AudioThumbnailPane::changeListenerCallback(juce::ChangeBroadcaster *cb) {
     repaint();
 }
 
-void AudioThumbnailPane::set_reader(juce::AudioFormatReader *new_reader, juce::int64 hash) {
+void AudioThumbnailPane::set_reader(juce::AudioFormatReader *new_reader,
+                                    juce::int64 hash) {
     audio_thumbnail.setReader(new_reader, hash);
 }
 
-void AudioThumbnailPane::max_range_changed(PlaybackViewManager *r,
-                                           const juce::Range<double> &range) {
-    position_playhead();
-    repaint();
-}
-void AudioThumbnailPane::visible_range_changed(PlaybackViewManager *r,
-                                               const juce::Range<double> &range) {
-    position_playhead();
-    repaint();
-}
-void AudioThumbnailPane::current_time_changed(PlaybackViewManager *r,
-                                              double time) {
+void AudioThumbnailPane::visible_range_changed(
+        TransportViewManager *r, const juce::Range<double> &range) {
     position_playhead();
     repaint();
 }
 
-void AudioThumbnailPane::playhead_dragged(Playhead *p, const juce::MouseEvent &e) {
-    if (p == &playhead &&
-        !transport_view_manager.audio_transport_source.isPlaying()) {
+void AudioThumbnailPane::playhead_time_changed(TransportViewManager *r, double t) {
+    position_playhead();
+    repaint();
+}
+
+void AudioThumbnailPane::playhead_dragged(Playhead *p,
+                                          const juce::MouseEvent &e) {
+    if (p == &playhead && !audio_transport_source.isPlaying()) {
         auto mouse_pos = e.getEventRelativeTo(this).getPosition().getX();
-        auto constrained = juce::Range<int>(1, getWidth() - 1).clipValue(mouse_pos);
-        transport_view_manager.audio_transport_source.setPosition(
-                x_to_time(constrained));
-        transport_view_manager.timerCallback();
+        auto constrained =
+                juce::Range<int>(1, getWidth() - 1).clipValue(mouse_pos);
+        audio_transport_source.setPosition(x_to_time(constrained));
     }
 }
 
@@ -98,8 +96,7 @@ double AudioThumbnailPane::x_to_time(double t) const {
 }
 void AudioThumbnailPane::position_playhead() {
     playhead.setTopLeftPosition(
-            time_to_x(transport_view_manager.audio_transport_source
-                              .getCurrentPosition()) -
+            time_to_x(audio_transport_source.getCurrentPosition()) -
                     (playhead.getWidth() * 0.5),
             0);
 }

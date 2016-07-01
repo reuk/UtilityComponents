@@ -1,5 +1,7 @@
 #include "UtilityComponents/GainSlider.hpp"
 
+#include "juce_audio_basics/juce_audio_basics.h"
+
 GainSlider::GainSlider(Orientation orientation)
         : slider(orientation == Orientation::horizontal
                          ? juce::Slider::SliderStyle::LinearHorizontal
@@ -37,6 +39,14 @@ void GainSlider::sliderDragEnded(juce::Slider* s) {
     if (s == &slider) {
         listener_list.call(&Listener::gain_slider_drag_ended, this);
     }
+}
+
+double GainSlider::get_gain() const {
+    return juce::Decibels::decibelsToGain(slider.getValue());
+}
+
+void GainSlider::set_gain(double g, juce::NotificationType n) {
+    slider.setValue(juce::Decibels::gainToDecibels(g), n);
 }
 
 void GainSlider::addListener(Listener* l) {
